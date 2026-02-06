@@ -11,7 +11,7 @@
             margin: 0; padding: 0;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
             font-family: 'Poppins', sans-serif;
-            overflow: hidden; text-align: center; color: #4a4a4a;
+            overflow-x: hidden; text-align: center; color: #4a4a4a;
         }
 
         /* --- Password Screen --- */
@@ -20,20 +20,9 @@
             background: #ff4d6d; display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 20;
         }
-
         #password-screen h2 { color: white; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2.5rem; }
-
-        #password-input {
-            padding: 12px; border-radius: 25px; border: none; outline: none;
-            width: 250px; text-align: center; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        #password-btn {
-            margin-top: 20px; padding: 10px 30px; border-radius: 25px; border: none;
-            background: white; color: #ff4d6d; font-weight: bold; cursor: pointer;
-            transition: 0.3s;
-        }
-        #password-btn:hover { background: #ffe3e8; transform: scale(1.1); }
+        #password-input { padding: 12px; border-radius: 25px; border: none; width: 250px; text-align: center; font-size: 16px; }
+        #password-btn { margin-top: 20px; padding: 10px 30px; border-radius: 25px; border: none; background: white; color: #ff4d6d; font-weight: bold; cursor: pointer; }
 
         /* --- Surprise Overlay --- */
         #cover {
@@ -42,27 +31,31 @@
             align-items: center; justify-content: center; z-index: 10;
             transition: transform 1s ease-in-out;
         }
-
         .gift-box { font-size: 80px; cursor: pointer; animation: bounce 2s infinite; }
         .click-text { color: white; font-size: 20px; margin-top: 10px; }
 
         /* --- Main Content --- */
-        #main-content { display: none; padding: 20px; animation: fadeIn 2s; }
-
+        #main-content { display: none; padding: 20px; padding-bottom: 100px; animation: fadeIn 2s; }
         h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #d63384; }
-
-        .photo-frame {
-            background: white; padding: 15px; border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2); display: inline-block;
-            margin: 20px auto; transform: rotate(-3deg);
-        }
-
+        .photo-frame { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); display: inline-block; margin: 20px auto; transform: rotate(-3deg); }
         img { max-width: 100%; width: 300px; height: auto; border-radius: 10px; }
+        .message-box { background: rgba(255, 255, 255, 0.8); padding: 30px; border-radius: 20px; max-width: 600px; margin: 20px auto; }
 
-        .message-box {
-            background: rgba(255, 255, 255, 0.8); padding: 30px;
-            border-radius: 20px; max-width: 600px; margin: 20px auto;
+        /* --- Private Section --- */
+        #private-btn {
+            background: #d63384; color: white; border: none; padding: 15px 30px;
+            font-size: 18px; border-radius: 50px; cursor: pointer; margin-top: 40px;
+            font-weight: bold; box-shadow: 0 5px 15px rgba(214, 51, 132, 0.4);
+            transition: 0.3s;
         }
+        #private-btn:hover { transform: scale(1.05); background: #b02a6b; }
+        
+        #private-gallery {
+            display: none; margin-top: 30px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; padding: 20px; max-width: 1000px; margin-left: auto; margin-right: auto;
+        }
+        .private-img-frame { background: white; padding: 10px; border-radius: 10px; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+        .private-img-frame img { width: 100%; height: auto; }
 
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-30px);} }
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
@@ -95,53 +88,55 @@
 
         <div class="message-box">
             <h2>Mere Pyaare Insaan ke liye...</h2>
-            <p>
-                Happy Birthday, Love! 🎉 <br><br>
-                Tumhare aane se meri zindagi me jo khushi aayi hai, use shabdon me batana mushkil hai. 
-                <br><br>
-                <strong>I Love You So Much! ❤️</strong>
-            </p>
+            <p>Happy Birthday, Love! 🎉 <br><br> Tumhare aane se meri zindagi me jo khushi aayi hai, use shabdon me batana mushkil hai. <br><br><strong>I Love You So Much! ❤️</strong></p>
         </div>
 
         <div class="photo-frame" style="transform: rotate(3deg);">
             <img src="couple_photo.PNG" alt="Us">
             <br>Forever & Always ✨
         </div>
+
+        <div style="margin-top: 50px;">
+            <button id="private-btn" onclick="showPrivatePhotos()">Ham dono ka private photo 🔐</button>
+        </div>
+
+        <div id="private-gallery">
+            <div class="private-img-frame"><img src="private1.jpg"></div>
+            <div class="private-img-frame"><img src="private2.jpg"></div>
+            <div class="private-img-frame"><img src="private3.jpg"></div>
+            <div class="private-img-frame"><img src="private4.jpg"></div>
+            <div class="private-img-frame"><img src="private5.jpg"></div>
+            <div class="private-img-frame"><img src="private6.jpg"></div>
+        </div>
     </div>
 
     <script>
-        // Password Check Function
         function checkPassword() {
             var pass = document.getElementById('password-input').value;
-            // Password match check
-            if (pass === "Binita Ki Pati Mahendra") {
+            if (pass === "Binnu Ki Pati Mahendra") {
                 document.getElementById('password-screen').style.display = 'none';
                 document.getElementById('cover').style.display = 'flex';
-                document.body.style.overflow = 'auto';
-            } else {
-                alert("Wrong Password! Socho socho... 😉");
-            }
+            } else { alert("Wrong Password! Socho socho... 😉"); }
         }
 
-        // Open Surprise Function
         function openSurprise() {
-            var cover = document.getElementById('cover');
-            var main = document.getElementById('main-content');
             var song = document.getElementById('birthdaySong');
-            
-            song.volume = 1.0; 
-            song.play();
-            
-            cover.style.transform = 'translateY(-100%)';
-            
+            song.volume = 1.0; song.play();
+            document.getElementById('cover').style.transform = 'translateY(-100%)';
             setTimeout(function() {
-                main.style.display = 'block';
+                document.getElementById('main-content').style.display = 'block';
                 startConfetti();
             }, 500);
         }
 
-        function startConfetti() { setInterval(createHeart, 300); }
+        function showPrivatePhotos() {
+            var gallery = document.getElementById('private-gallery');
+            gallery.style.display = 'grid';
+            // Scroll to gallery automatically
+            gallery.scrollIntoView({ behavior: 'smooth' });
+        }
 
+        function startConfetti() { setInterval(createHeart, 300); }
         function createHeart() {
             const heart = document.createElement('div');
             heart.innerHTML = '❤️';
@@ -150,12 +145,7 @@
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.fontSize = Math.random() * 20 + 10 + 'px';
             heart.style.zIndex = '5';
-            
-            heart.animate([
-                { transform: 'translateY(0)' },
-                { transform: 'translateY(100vh)' }
-            ], { duration: 4000, easing: 'linear' });
-
+            heart.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(100vh)' }], { duration: 4000, easing: 'linear' });
             document.body.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 4000);
         }
