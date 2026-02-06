@@ -7,110 +7,77 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap');
 
-        /* --- Basic Styling --- */
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
             font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-            text-align: center;
-            color: #4a4a4a;
+            overflow: hidden; text-align: center; color: #4a4a4a;
         }
 
-        /* --- Surprise Overlay (Cover) --- */
+        /* --- Password Screen --- */
+        #password-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #ff4d6d; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 20;
+        }
+
+        #password-screen h2 { color: white; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2.5rem; }
+
+        #password-input {
+            padding: 12px; border-radius: 25px; border: none; outline: none;
+            width: 250px; text-align: center; font-size: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        #password-btn {
+            margin-top: 20px; padding: 10px 30px; border-radius: 25px; border: none;
+            background: white; color: #ff4d6d; font-weight: bold; cursor: pointer;
+            transition: 0.3s;
+        }
+        #password-btn:hover { background: #ffe3e8; transform: scale(1.1); }
+
+        /* --- Surprise Overlay --- */
         #cover {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ff4d6d;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #ff4d6d; display: none; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 10;
             transition: transform 1s ease-in-out;
         }
 
-        .gift-box {
-            font-size: 80px;
-            cursor: pointer;
-            animation: bounce 2s infinite;
-        }
-
-        .click-text {
-            color: white;
-            font-size: 20px;
-            margin-top: 10px;
-        }
+        .gift-box { font-size: 80px; cursor: pointer; animation: bounce 2s infinite; }
+        .click-text { color: white; font-size: 20px; margin-top: 10px; }
 
         /* --- Main Content --- */
-        #main-content {
-            display: none; 
-            padding: 20px;
-            animation: fadeIn 2s;
-        }
+        #main-content { display: none; padding: 20px; animation: fadeIn 2s; }
 
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            color: #d63384;
-            margin-bottom: 10px;
-        }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #d63384; }
 
         .photo-frame {
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            display: inline-block;
-            margin: 20px auto;
-            transform: rotate(-3deg);
-            transition: transform 0.3s;
-        }
-        .photo-frame:hover {
-            transform: rotate(0deg) scale(1.05);
+            background: white; padding: 15px; border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); display: inline-block;
+            margin: 20px auto; transform: rotate(-3deg);
         }
 
-        img {
-            max-width: 100%;
-            width: 300px;
-            height: auto;
-            border-radius: 10px;
-        }
+        img { max-width: 100%; width: 300px; height: auto; border-radius: 10px; }
 
         .message-box {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 600px;
-            margin: 20px auto;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.8); padding: 30px;
+            border-radius: 20px; max-width: 600px; margin: 20px auto;
         }
 
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-30px);}
-            60% {transform: translateY(-15px);}
-        }
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-30px);} }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     </style>
 </head>
 <body>
 
+    <div id="password-screen">
+        <h2>Pehle Password Batao! 😉</h2>
+        <input type="text" id="password-input" placeholder="Type password here...">
+        <button id="password-btn" onclick="checkPassword()">Unlock Surprise</button>
+    </div>
+
     <audio id="birthdaySong" loop>
         <source src="song.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
     </audio>
 
     <div id="cover" onclick="openSurprise()">
@@ -122,7 +89,7 @@
         <h1>Happy Birthday Jaan! ❤️</h1>
 
         <div class="photo-frame">
-            <img src="gf_photo.PNG" alt="My Beautiful Birthday Girl">
+            <img src="gf_photo.PNG" alt="Birthday Girl">
             <br>The Most Beautiful Girl 🌹
         </div>
 
@@ -131,33 +98,40 @@
             <p>
                 Happy Birthday, Love! 🎉 <br><br>
                 Tumhare aane se meri zindagi me jo khushi aayi hai, use shabdon me batana mushkil hai. 
-                Tumhari smile meri favorite cheez hai aur tumhari khushi meri priority.
-                <br><br>
-                Bhagwan kare tumhari saari wishes puri hon aur hum hamesha aise hi saath rahein.
-                Thank you for being YOU.
                 <br><br>
                 <strong>I Love You So Much! ❤️</strong>
             </p>
         </div>
 
         <div class="photo-frame" style="transform: rotate(3deg);">
-            <img src="couple_photo.PNG" alt="Us Together">
+            <img src="couple_photo.PNG" alt="Us">
             <br>Forever & Always ✨
         </div>
     </div>
 
     <script>
+        // Password Check Function
+        function checkPassword() {
+            var pass = document.getElementById('password-input').value;
+            // Password match check
+            if (pass === "Binita Ki Pati Mahendra") {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('cover').style.display = 'flex';
+                document.body.style.overflow = 'auto';
+            } else {
+                alert("Wrong Password! Socho socho... 😉");
+            }
+        }
+
+        // Open Surprise Function
         function openSurprise() {
             var cover = document.getElementById('cover');
             var main = document.getElementById('main-content');
             var song = document.getElementById('birthdaySong');
             
-            // Gaana bajana shuru karein
-            song.play().catch(function(error) {
-                console.log("Audio play failed: ", error);
-            });
+            song.volume = 1.0; 
+            song.play();
             
-            // Cover ko slide karein
             cover.style.transform = 'translateY(-100%)';
             
             setTimeout(function() {
@@ -166,9 +140,7 @@
             }, 500);
         }
 
-        function startConfetti() {
-            setInterval(createHeart, 300);
-        }
+        function startConfetti() { setInterval(createHeart, 300); }
 
         function createHeart() {
             const heart = document.createElement('div');
@@ -182,10 +154,7 @@
             heart.animate([
                 { transform: 'translateY(0)' },
                 { transform: 'translateY(100vh)' }
-            ], {
-                duration: 4000,
-                easing: 'linear'
-            });
+            ], { duration: 4000, easing: 'linear' });
 
             document.body.appendChild(heart);
             setTimeout(() => { heart.remove(); }, 4000);
