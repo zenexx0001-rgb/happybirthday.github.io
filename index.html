@@ -48,7 +48,7 @@
 
         /* --- Main Content --- */
         #main-content {
-            display: none; /* Initially Hidden */
+            display: none; 
             padding: 20px;
             animation: fadeIn 2s;
         }
@@ -60,7 +60,6 @@
             margin-bottom: 10px;
         }
 
-        /* --- Photo Section --- */
         .photo-frame {
             background: white;
             padding: 15px;
@@ -77,12 +76,11 @@
 
         img {
             max-width: 100%;
-            width: 300px; /* Photo size */
+            width: 300px;
             height: auto;
             border-radius: 10px;
         }
 
-        /* --- Message Section --- */
         .message-box {
             background: rgba(255, 255, 255, 0.8);
             padding: 30px;
@@ -97,12 +95,6 @@
             line-height: 1.6;
         }
 
-        .heart {
-            color: red;
-            font-size: 1.5rem;
-        }
-
-        /* --- Animations --- */
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-30px);}
@@ -112,10 +104,14 @@
             from {opacity: 0;}
             to {opacity: 1;}
         }
-
     </style>
 </head>
 <body>
+
+    <audio id="birthdaySong" loop>
+        <source src="song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <div id="cover" onclick="openSurprise()">
         <div class="gift-box">🎁</div>
@@ -123,7 +119,6 @@
     </div>
 
     <div id="main-content">
-        
         <h1>Happy Birthday Jaan! ❤️</h1>
 
         <div class="photo-frame">
@@ -149,26 +144,28 @@
             <img src="couple_photo.PNG" alt="Us Together">
             <br>Forever & Always ✨
         </div>
-
     </div>
 
     <script>
-        // Simple Script to reveal the website
         function openSurprise() {
             var cover = document.getElementById('cover');
             var main = document.getElementById('main-content');
+            var song = document.getElementById('birthdaySong');
             
-            // Slide the cover up
+            // Gaana bajana shuru karein
+            song.play().catch(function(error) {
+                console.log("Audio play failed: ", error);
+            });
+            
+            // Cover ko slide karein
             cover.style.transform = 'translateY(-100%)';
             
-            // Show main content
             setTimeout(function() {
                 main.style.display = 'block';
-                startConfetti(); // Start hearts effect
+                startConfetti();
             }, 500);
         }
 
-        // Falling Hearts Effect
         function startConfetti() {
             setInterval(createHeart, 300);
         }
@@ -180,10 +177,8 @@
             heart.style.top = '-10px';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
             heart.style.zIndex = '5';
             
-            // Basic fall animation
             heart.animate([
                 { transform: 'translateY(0)' },
                 { transform: 'translateY(100vh)' }
@@ -193,11 +188,7 @@
             });
 
             document.body.appendChild(heart);
-
-            // Remove heart after animation to keep browser fast
-            setTimeout(() => {
-                heart.remove();
-            }, 4000);
+            setTimeout(() => { heart.remove(); }, 4000);
         }
     </script>
 </body>
