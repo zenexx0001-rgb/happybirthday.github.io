@@ -18,21 +18,64 @@
         #password-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #ff4d6d; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; z-index: 20;
+            align-items: center; justify-content: center; z-index: 30;
         }
         #password-screen h2 { color: white; margin-bottom: 20px; font-family: 'Dancing Script', cursive; font-size: 2.5rem; }
         #password-input { padding: 12px; border-radius: 25px; border: none; width: 250px; text-align: center; font-size: 16px; }
         #password-btn { margin-top: 20px; padding: 10px 30px; border-radius: 25px; border: none; background: white; color: #ff4d6d; font-weight: bold; cursor: pointer; }
 
-        /* --- Surprise Overlay --- */
+        /* --- Surprise Overlay (Gift Box) --- */
         #cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #ff4d6d; display: none; flex-direction: column;
-            align-items: center; justify-content: center; z-index: 10;
+            align-items: center; justify-content: center; z-index: 20;
             transition: transform 1s ease-in-out;
         }
         .gift-box { font-size: 80px; cursor: pointer; animation: bounce 2s infinite; }
         .click-text { color: white; font-size: 20px; margin-top: 10px; }
+
+        /* --- CAKE SECTION (New Feature) --- */
+        #cake-section {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); display: none; flex-direction: column;
+            align-items: center; justify-content: center; z-index: 25;
+            transition: opacity 1s ease;
+        }
+        #cake-instruction { color: white; margin-bottom: 50px; font-size: 22px; animation: pulse 1.5s infinite; }
+        
+        .cake-container { position: relative; width: 250px; height: 200px; margin-top: 50px; }
+        .cake-body {
+            position: absolute; bottom: 0; width: 100%; height: 120px;
+            background: #f8c291; border-radius: 10px 10px 0 0;
+            box-shadow: inset 0 -20px #e17055, 0 5px 10px rgba(0,0,0,0.2);
+        }
+        .icing {
+            position: absolute; top: 80px; width: 100%; height: 30px;
+            background: #ff7675; border-radius: 50%; z-index: 2;
+        }
+        .cherry {
+            position: absolute; top: 70px; left: 45%; width: 25px; height: 25px;
+            background: #d63031; border-radius: 50%; z-index: 3;
+            box-shadow: inset -2px -2px rgba(0,0,0,0.2);
+        }
+        .candle {
+            position: absolute; top: 20px; left: 48%; width: 12px; height: 60px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 5px, #74b9ff 5px, #74b9ff 10px);
+            z-index: 1; border-radius: 3px;
+        }
+        .flame {
+            position: absolute; top: -25px; left: 50%; transform: translateX(-50%);
+            width: 15px; height: 25px; background: orange;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px orange, 0 0 20px yellow;
+            animation: flicker 0.1s infinite alternate;
+            transform-origin: bottom center;
+        }
+        .smoke {
+            display: none; position: absolute; top: -30px; left: 50%;
+            width: 10px; height: 10px; background: rgba(255,255,255,0.6);
+            border-radius: 50%; animation: smokeRise 1s forwards;
+        }
 
         /* --- Main Content --- */
         #main-content { display: none; padding: 20px; padding-bottom: 100px; animation: fadeIn 2s; }
@@ -53,18 +96,13 @@
         #private-gallery {
             display: none; margin-top: 30px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px; padding: 20px; max-width: 1000px; margin-left: auto; margin-right: auto;
-            /* Shuru me blur rahega */
-            filter: blur(20px); 
-            transition: filter 1s ease;
+            filter: blur(20px); transition: filter 1s ease;
         }
-        
-        /* Blur class removal ke liye */
         .clear-view { filter: blur(0px) !important; }
-
         .private-img-frame { background: white; padding: 10px; border-radius: 10px; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
         .private-img-frame img { width: 100%; height: auto; }
 
-        /* --- NEW POPUP STYLES --- */
+        /* --- MODALS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6); display: none;
@@ -76,18 +114,18 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             animation: popIn 0.3s ease;
         }
-        .modal-box h3 { color: #d63384; margin-bottom: 20px; }
-        .modal-btn {
-            padding: 10px 25px; margin: 10px; border: none; border-radius: 20px;
-            font-weight: bold; cursor: pointer; font-size: 16px;
-        }
+        .modal-btn { padding: 10px 25px; margin: 10px; border: none; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 16px; }
         .btn-yes { background: #28a745; color: white; }
         .btn-no { background: #dc3545; color: white; }
         .btn-submit { background: #d63384; color: white; width: 100%; margin-top: 15px; }
 
+        /* Animations */
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-30px);} }
         @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
         @keyframes popIn { from {transform: scale(0.5); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+        @keyframes flicker { from {transform: translateX(-50%) scale(1);} to {transform: translateX(-50%) scale(1.1);} }
+        @keyframes smokeRise { 0% {opacity: 1; transform: translateY(0) scale(1);} 100% {opacity: 0; transform: translateY(-30px) scale(2);} }
+        @keyframes pulse { 0% {opacity: 0.5;} 50% {opacity: 1;} 100% {opacity: 0.5;} }
 
     </style>
 </head>
@@ -103,9 +141,21 @@
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="cover" onclick="openSurprise()">
+    <div id="cover" onclick="triggerCake()">
         <div class="gift-box">🎁</div>
         <div class="click-text">Click to Open Your Surprise!</div>
+    </div>
+
+    <div id="cake-section">
+        <h2 id="cake-instruction">Make a Wish & Blow the Candle! 🎂💨<br>(Phone ke mic pe fook maaro)</h2>
+        <div class="cake-container" onclick="blowOutCandle()"> <div class="candle">
+                <div class="flame" id="flame"></div>
+                <div class="smoke" id="smoke"></div>
+            </div>
+            <div class="icing"></div>
+            <div class="cherry"></div>
+            <div class="cake-body"></div>
+        </div>
     </div>
 
     <div id="main-content">
@@ -135,8 +185,6 @@
             <div class="private-img-frame"><img src="private2.jpg"></div>
             <div class="private-img-frame"><img src="private3.jpg"></div>
             <div class="private-img-frame"><img src="private4.jpg"></div>
-            <div class="private-img-frame"><img src="private5.jpg"></div>
-            <div class="private-img-frame"><img src="private6.jpg"></div>
         </div>
     </div>
 
@@ -157,6 +205,12 @@
     </div>
 
     <script>
+        // Global variables for audio detection
+        let audioContext;
+        let analyser;
+        let microphone;
+        let isBlowing = false;
+
         // --- Original Password Logic ---
         function checkPassword() {
             var pass = document.getElementById('password-input').value;
@@ -166,39 +220,90 @@
             } else { alert("Wrong Password! Socho socho... 😉"); }
         }
 
-        function openSurprise() {
+        // --- CAKE & MIC LOGIC ---
+        function triggerCake() {
+            // Hide Gift, Show Cake
+            document.getElementById('cover').style.display = 'none';
+            document.getElementById('cake-section').style.display = 'flex';
+            
+            // Start listening to Microphone
+            startMicrophone();
+        }
+
+        function startMicrophone() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(function(stream) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                microphone = audioContext.createMediaStreamSource(stream);
+                microphone.connect(analyser);
+                analyser.fftSize = 256;
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+
+                function detectBlow() {
+                    analyser.getByteFrequencyData(dataArray);
+                    let sum = 0;
+                    for(let i = 0; i < bufferLength; i++) {
+                        sum += dataArray[i];
+                    }
+                    let average = sum / bufferLength;
+
+                    // Adjust sensitivity here (Default: 40)
+                    if (average > 40 && !isBlowing) { 
+                        blowOutCandle();
+                    }
+                    
+                    if (!isBlowing) requestAnimationFrame(detectBlow);
+                }
+                detectBlow();
+            })
+            .catch(function(err) {
+                console.log("Mic access denied or error: " + err);
+                // If mic fails, user can click the cake to blow it out (Fallback)
+                document.getElementById('cake-instruction').innerText = "Tap on the candle to blow it out! 👆";
+            });
+        }
+
+        function blowOutCandle() {
+            if (isBlowing) return;
+            isBlowing = true;
+
+            // Visuals
+            document.getElementById('flame').style.display = 'none';
+            document.getElementById('smoke').style.display = 'block';
+            document.getElementById('cake-instruction').innerText = "Yay! Happy Birthday! 🥳";
+
+            // Play Song
             var song = document.getElementById('birthdaySong');
-            song.volume = 1.0; song.play();
-            document.getElementById('cover').style.transform = 'translateY(-100%)';
+            song.volume = 1.0; 
+            song.play().catch(error => console.log("Audio play failed: ", error));
+
+            // Wait 2 seconds, then show main content
             setTimeout(function() {
-                document.getElementById('main-content').style.display = 'block';
-                startConfetti();
-            }, 500);
+                document.getElementById('cake-section').style.opacity = '0'; // Fade out cake
+                setTimeout(() => {
+                    document.getElementById('cake-section').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    startConfetti();
+                }, 1000);
+            }, 2000);
         }
 
         // --- NEW LOGIC FOR PRIVATE PHOTOS ---
-        
         function initiatePrivateFlow() {
             var gallery = document.getElementById('private-gallery');
-            
-            // 1. Show gallery but keep it Blurred
             gallery.style.display = 'grid';
             gallery.scrollIntoView({ behavior: 'smooth' });
-            
-            // 2. Open Permission Modal after small delay
-            setTimeout(() => {
-                document.getElementById('modal-permission').style.display = 'flex';
-            }, 500);
+            setTimeout(() => { document.getElementById('modal-permission').style.display = 'flex'; }, 500);
         }
 
         function handlePermission(answer) {
             if (answer === 'no') {
-                // Close modal and hide gallery
                 document.getElementById('modal-permission').style.display = 'none';
                 document.getElementById('private-gallery').style.display = 'none';
                 alert("Jao pehle permission lekar aao! 😤");
             } else {
-                // Close Permission modal, Open Password Modal
                 document.getElementById('modal-permission').style.display = 'none';
                 document.getElementById('modal-password').style.display = 'flex';
             }
@@ -206,15 +311,11 @@
 
         function checkPrivatePassword() {
             var pass = document.getElementById('private-pass-input').value;
-            // Checking exact password: "Kiss Dogi Bebie"
             if (pass === "Kiss Dogi Bebie") {
                 document.getElementById('modal-password').style.display = 'none';
-                // Remove Blur
                 document.getElementById('private-gallery').classList.add('clear-view');
                 alert("Good Girl! Ye lo photos ❤️");
-            } else {
-                alert("Galat Jawab! Sahi password dalo janu.. 💋");
-            }
+            } else { alert("Galat Jawab! Sahi password dalo janu.. 💋"); }
         }
 
         function startConfetti() { setInterval(createHeart, 300); }
